@@ -6,6 +6,7 @@ var Search = {
   lastQuery: "",
   panel: null,
   input: null,
+  results: [],
 
   init: function() {
     Search.input = document.getElementById("globalSearch");
@@ -93,6 +94,8 @@ var Search = {
       + '<button class="search-results-close" onclick="Search.close()" title="Fechar">✕</button>'
       + '</div>';
 
+    Search.results = results;
+
     var list = '<div class="search-results-list">'
       + results.map(function(r, i) { return Search.renderResultItem(r, q, i); }).join("")
       + '</div>';
@@ -126,7 +129,7 @@ var Search = {
     var msgNum = "#" + (r.msgIndex + 1);
 
     return '<div class="search-result-item"'
-      + ' onclick="Search.goToResult(' + JSON.stringify(r) + ')"'
+      + ' onclick="Search.goToResult(' + idx + ')"'
       + ' title="Ir para mensagem ' + msgNum + ' da sessão ' + escHtml(r.sessionId) + '"'
       + '>'
       + '<div class="search-result-meta">'
@@ -148,7 +151,9 @@ var Search = {
     });
   },
 
-  goToResult: function(r) {
+  goToResult: function(idx) {
+    var r = Search.results[idx];
+    if (!r) return;
     // Salva a query ANTES de fechar (close() limpa lastQuery)
     var q = Search.lastQuery;
 
