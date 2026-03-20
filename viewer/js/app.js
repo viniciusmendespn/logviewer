@@ -40,10 +40,9 @@ var App = {
       // Scroll para mensagem pendente (vindo de resultado de busca)
       if (App.pendingScrollMsgIndex != null) {
         var idx = App.pendingScrollMsgIndex;
-        var field = App.pendingScrollField;
         App.pendingScrollMsgIndex = null;
         App.pendingScrollField = null;
-        setTimeout(function() { Search.scrollToMsg(idx, field); }, 80);
+        Search.scrollToMsg(idx);
       }
     } catch (e) {
       convView.innerHTML = '<div class="page-loading" style="color:var(--color-error)">Erro ao carregar sessão</div>';

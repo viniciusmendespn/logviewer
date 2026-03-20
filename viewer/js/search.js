@@ -149,25 +149,31 @@ var Search = {
   },
 
   goToResult: function(r) {
-    Search.close();
+    // Salva a query ANTES de fechar (close() limpa lastQuery)
+    var q = Search.lastQuery;
 
-    // Verifica se já é a sessão ativa
+    Search.panel.style.display = "none";
+
+    // Mantém a query no input e nos highlights da sessão
+    App.searchQuery = q;
+    Search.input.value = q;
+
     var isSameSession = App.activeSession === r.sessionId && App.activeDate === r.date;
 
     if (isSameSession) {
-      // Apenas rola para a mensagem
-      Search.scrollToMsg(r.msgIndex, r.field);
+      // Sessão já carregada — só rola
+      Search.scrollToMsg(r.msgIndex);
       return;
     }
 
-    // Seleciona a sessão na sidebar (visual)
-    var selector = '.session-item[onclick*="' + r.sessionId + '"]';
-    var sidebarItem = document.querySelector(selector);
+    // Marca a mensagem alvo para scroll após carregamento
+    App.pendingScrollMsgIndex = r.msgIndex;
+
+    // Abre a data na sidebar se estiver colapsada
+    var sidebarItem = document.querySelector('.session-item[onclick*="' + r.sessionId + '"]');
     if (sidebarItem) {
-      // Garante que a data está aberta
       var group = sidebarItem.closest(".date-group");
       if (group && group.classList.contains("collapsed")) {
-        // Fecha outras e abre esta
         document.querySelectorAll(".date-group:not(.collapsed)").forEach(function(g) {
           g.classList.add("collapsed");
         });
@@ -175,21 +181,22 @@ var Search = {
       }
       selectSession(sidebarItem, r.sessionId, r.date);
     } else {
-      // Carrega direto
       App.loadSession(r.sessionId, r.date);
     }
-
-    // Aguarda renderização e rola para a mensagem
-    App.pendingScrollMsgIndex = r.msgIndex;
-    App.pendingScrollField = r.field;
   },
 
-  scrollToMsg: function(msgIndex, field) {
-    var el = document.getElementById("msg-" + msgIndex);
-    if (!el) return;
-    el.scrollIntoView({ behavior: "smooth", block: "start" });
-    el.classList.add("search-highlighted");
-    setTimeout(function() { el.classList.remove("search-highlighted"); }, 2000);
+  // Rola até a mensagem e pisca o destaque.
+  // Usa requestAnimationFrame duplo para garantir que o browser terminou o layout.
+  scrollToMsg: function(msgIndex) {
+    requestAnimationFrame(function() {
+      requestAnimationFrame(function() {
+        var el = document.getElementById("msg-" + msgIndex);
+        if (!el) return;
+        el.scrollIntoView({ behavior: "smooth", block: "start" });
+        el.classList.add("search-highlighted");
+        setTimeout(function() { el.classList.remove("search-highlighted"); }, 2500);
+      });
+    });
   },
 
   showError: function() {
