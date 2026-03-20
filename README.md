@@ -33,6 +33,28 @@ O script cria o ambiente virtual, instala as dependências e abre automaticament
 
 ---
 
+## Atualizar para a versão mais recente
+
+A versão atual é exibida no canto superior esquerdo da ferramenta (ex: `v1.1.0 (3e2a19c)`).
+
+Para atualizar, pare o servidor (`Ctrl+C`) e execute:
+
+### Windows
+
+```bash
+update.bat
+start.bat
+```
+
+### Mac / Linux
+
+```bash
+./update.sh
+./start.sh
+```
+
+---
+
 ## Como usar
 
 ### 1. Baixar os logs do S3

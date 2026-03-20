@@ -115,6 +115,24 @@ def api_session(session_id):
     return jsonify({"messages": messages})
 
 
+@app.route("/api/version")
+def api_version():
+    root = os.path.dirname(__file__)
+    try:
+        with open(os.path.join(root, "VERSION")) as f:
+            version = f.read().strip()
+    except Exception:
+        version = "?"
+    try:
+        commit = subprocess.check_output(
+            ["git", "rev-parse", "--short", "HEAD"],
+            cwd=root, stderr=subprocess.DEVNULL
+        ).decode().strip()
+    except Exception:
+        commit = None
+    return jsonify({"version": version, "commit": commit})
+
+
 @app.route("/api/search")
 def api_search():
     q = request.args.get("q", "").strip().lower()

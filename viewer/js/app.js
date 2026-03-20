@@ -168,6 +168,18 @@ function drFlag(key, value) {
     + '</div>';
 }
 
+// ─── Version ──────────────────────────────────────────────────────────────────
+
+async function loadVersion() {
+  try {
+    var data = await API.getVersion();
+    var label = "v" + data.version;
+    if (data.commit) label += " (" + data.commit + ")";
+    document.getElementById("appVersion").textContent = label;
+    document.getElementById("appVersion").title = "Versão atual";
+  } catch (e) { /* silencioso */ }
+}
+
 // ─── Theme ────────────────────────────────────────────────────────────────────
 
 function initTheme() {
@@ -338,6 +350,7 @@ async function runSync() {
     marked.setOptions({ breaks: true, gfm: true });
   }
 
+  loadVersion();
   initTheme();
   initSidebar();
   initSearch();

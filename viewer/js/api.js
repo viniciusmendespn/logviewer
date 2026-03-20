@@ -1,4 +1,10 @@
 const API = {
+  async getVersion() {
+    const res = await fetch("/api/version");
+    if (!res.ok) throw new Error("HTTP " + res.status);
+    return res.json();
+  },
+
   async getSessions() {
     const res = await fetch("/api/sessions");
     if (!res.ok) throw new Error("HTTP " + res.status);
