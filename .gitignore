@@ -1,0 +1,13 @@
+# Logs (baixados via Sync S3 — não versionar)
+logs/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+
+# OS
+.DS_Store
+Thumbs.db
