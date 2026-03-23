@@ -87,6 +87,7 @@ def api_sessions():
                     "date": date_val,
                 })
         if sessions:
+            sessions.sort(key=lambda s: s["firstTimestamp"] or "", reverse=True)
             dates.append({"date": date_val, "sessions": sessions})
     return jsonify({"dates": dates})
 
