@@ -21,12 +21,33 @@ async function loadSessions() {
 function renderSidebar(dates) {
   var content = document.getElementById("sidebarContent");
 
+  var totalSessions = 0, totalMessages = 0;
+  for (var i = 0; i < dates.length; i++) {
+    var sessions = dates[i].sessions || [];
+    totalSessions += sessions.length;
+    for (var j = 0; j < sessions.length; j++) {
+      totalMessages += sessions[j].messageCount || 0;
+    }
+  }
+
+  var summary = '<div class="sidebar-summary">'
+    + '<div class="sidebar-summary-item">'
+    +   '<div class="sidebar-summary-value">' + formatNumber(totalSessions) + '</div>'
+    +   '<div class="sidebar-summary-label">Sessões</div>'
+    + '</div>'
+    + '<div class="sidebar-summary-divider"></div>'
+    + '<div class="sidebar-summary-item">'
+    +   '<div class="sidebar-summary-value">' + formatNumber(totalMessages) + '</div>'
+    +   '<div class="sidebar-summary-label">Mensagens</div>'
+    + '</div>'
+    + '</div>';
+
   // Primeira data abre, demais ficam fechadas
   var html = dates.map(function(group, idx) {
     return renderDateGroup(group.date, group.sessions, idx === 0);
   }).join("");
 
-  content.innerHTML = html || '<div class="sidebar-loading">Nenhuma sessão encontrada.</div>';
+  content.innerHTML = summary + (html || '<div class="sidebar-loading">Nenhuma sessão encontrada.</div>');
 }
 
 function renderDateGroup(date, sessions, isOpen) {

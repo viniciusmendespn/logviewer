@@ -194,6 +194,40 @@ body.sidebar-closed #sidebar {
 }
 .sidebar-search input::placeholder { color: var(--text-tertiary); }
 
+/* ─── SIDEBAR SUMMARY ─── */
+.sidebar-summary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-4);
+  padding: var(--space-3) var(--space-4);
+  background: var(--bg-elevated);
+  border-bottom: 1px solid var(--border-light);
+}
+.sidebar-summary-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+}
+.sidebar-summary-value {
+  font-size: var(--text-lg);
+  font-weight: 700;
+  color: var(--brand-accent);
+  line-height: 1;
+}
+.sidebar-summary-label {
+  font-size: var(--text-xs);
+  color: var(--text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: .5px;
+}
+.sidebar-summary-divider {
+  width: 1px;
+  height: 28px;
+  background: var(--border-default);
+}
+
 #sidebarContent {
   flex: 1;
   overflow-y: auto;
