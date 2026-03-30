@@ -64,22 +64,23 @@ function renderMessage(msg, idx, query) {
   });
 
   // ── Trace section ──
-  var traceHtml = "";
-  if (uniqueTrace.length > 0) {
-    traceHtml = '<div class="trace-section">'
-      + '<button class="trace-toggle" onclick="toggleTrace(this,' + idx + ')">'
-      +   svgIcon("chevron-right", "trace-arrow")
-      +   '<span class="trace-toggle-label">Trace de Execução</span>'
-      +   '<span class="trace-toggle-count">' + uniqueTrace.length + ' step' + (uniqueTrace.length !== 1 ? "s" : "") + '</span>'
-      +   '<div class="trace-toggle-actions">'
-      +     '<button class="copy-btn" onclick="copyTraceAsJson(event,' + idx + ')">JSON</button>'
-      +   '</div>'
-      + '</button>'
-      + '<div class="trace-body" id="tb-' + idx + '">'
-      +   renderTraceTimeline(uniqueTrace, idx, query)
-      + '</div>'
-      + '</div>';
-  }
+  var hasTrace = uniqueTrace.length > 0;
+  var traceHtml = '<div class="trace-section">'
+    + '<button class="trace-toggle' + (!hasTrace ? ' no-trace' : '') + '"'
+    +   (hasTrace ? ' onclick="toggleTrace(this,' + idx + ')"' : '') + '>'
+    +   svgIcon("chevron-right", "trace-arrow" + (!hasTrace ? ' trace-arrow-hidden' : ''))
+    +   '<span class="trace-toggle-label">Trace de Execução</span>'
+    +   (hasTrace
+          ? '<span class="trace-toggle-count">' + uniqueTrace.length + ' step' + (uniqueTrace.length !== 1 ? "s" : "") + '</span>'
+          : '<span class="trace-toggle-count no-action">Nenhuma action executada</span>')
+    +   '<div class="trace-toggle-actions">'
+    +     '<button class="copy-btn" onclick="copyText(JSON.stringify(App.messages[' + idx + '],null,2),this)">JSON</button>'
+    +   '</div>'
+    + '</button>'
+    + (hasTrace
+        ? '<div class="trace-body" id="tb-' + idx + '">' + renderTraceTimeline(uniqueTrace, idx, query) + '</div>'
+        : '')
+    + '</div>';
 
   // ── Message ID pill ──
   var msgIdHtml = session.messageId

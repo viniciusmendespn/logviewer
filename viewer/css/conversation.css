@@ -192,15 +192,11 @@
   gap: var(--space-1);
 }
 
-/* Extra bottom breathing room when there is no trace section */
-.msg-card .meta-bar:last-child {
-  padding-bottom: var(--space-4);
-}
-
 /* ─── TRACE ─── */
 .trace-section {
   border-top: 1px solid var(--border-light);
 }
+
 
 .trace-toggle {
   display: flex;
@@ -216,6 +212,10 @@
   transition: background var(--transition-fast);
 }
 .trace-toggle:hover { background: var(--bg-hover); }
+.trace-toggle.no-trace { cursor: default; }
+.trace-toggle.no-trace:hover { background: none; }
+.trace-arrow-hidden { visibility: hidden; }
+.trace-toggle-count.no-action { color: var(--text-tertiary); font-style: italic; background: none; border: none; padding: 0; }
 
 .trace-arrow {
   color: var(--brand-accent);
