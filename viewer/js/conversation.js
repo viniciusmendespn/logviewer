@@ -106,7 +106,7 @@ function renderMessage(msg, idx, query) {
     +       '<span class="bubble-label">Usuário</span>'
     +       '<div class="bubble-meta">'
     +         (req.text_len != null ? '<span class="bubble-len">' + req.text_len + ' chars</span>' : "")
-    +         '<button class="copy-btn" onclick="copyText(' + JSON.stringify(userText) + ',this)">Copiar</button>'
+    +         '<button class="copy-btn" onclick="copyText(App.messages[' + idx + '].request.text,this)">Copiar</button>'
     +       '</div>'
     +     '</div>'
     +     '<div class="bubble-text">' + userContent + '</div>'
@@ -117,7 +117,7 @@ function renderMessage(msg, idx, query) {
     +       '<div class="bubble-meta">'
     +         (resp.text_len != null ? '<span class="bubble-len">' + resp.text_len + ' chars</span>' : "")
     +         (resp.chunks != null ? '<span class="bubble-len">' + resp.chunks + ' chunk' + (resp.chunks !== 1 ? "s" : "") + '</span>' : "")
-    +         '<button class="copy-btn" onclick="copyText(' + JSON.stringify(assistantText) + ',this)">Copiar</button>'
+    +         '<button class="copy-btn" onclick="copyText(App.messages[' + idx + '].response.text,this)">Copiar</button>'
     +       '</div>'
     +     '</div>'
     +     assistantContent
