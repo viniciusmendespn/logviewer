@@ -177,7 +177,42 @@ async function loadVersion() {
     if (data.commit) label += " (" + data.commit + ")";
     document.getElementById("appVersion").textContent = label;
     document.getElementById("appVersion").title = "Versão atual";
+    checkForUpdate(data.version);
   } catch (e) { /* silencioso */ }
+}
+
+async function checkForUpdate(localVersion) {
+  try {
+    var res = await fetch(
+      "https://raw.githubusercontent.com/viniciusmendespn/logviewer/master/VERSION",
+      { cache: "no-store" }
+    );
+    if (!res.ok) return;
+    var remoteVersion = (await res.text()).trim();
+    if (remoteVersion && remoteVersion !== localVersion) {
+      showUpdateBanner(localVersion, remoteVersion);
+    }
+  } catch (e) { /* sem acesso à internet ou GitHub indisponível */ }
+}
+
+function showUpdateBanner(local, remote) {
+  var banner = document.createElement("div");
+  banner.className = "update-banner";
+  banner.innerHTML =
+    '<span class="update-banner-text">'
+    + '🆕 Nova versão disponível: <strong>v' + remote + '</strong>'
+    + ' &nbsp;(você está na v' + local + ')'
+    + ' — execute <code>update.bat</code> para atualizar'
+    + '</span>'
+    + '<button class="update-banner-close" title="Fechar">'
+    +   '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">'
+    +     '<line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>'
+    +   '</svg>'
+    + '</button>';
+  banner.querySelector(".update-banner-close").addEventListener("click", function() {
+    banner.remove();
+  });
+  document.body.prepend(banner);
 }
 
 // ─── Theme ────────────────────────────────────────────────────────────────────

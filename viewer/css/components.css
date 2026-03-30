@@ -1,3 +1,42 @@
+/* ─── UPDATE BANNER ─── */
+.update-banner {
+  position: fixed;
+  top: var(--header-height);
+  left: 0;
+  right: 0;
+  z-index: 200;
+  background: #0062cc;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  padding: 10px var(--space-5);
+  font-size: var(--text-sm);
+  box-shadow: 0 2px 8px rgba(0,0,0,.2);
+}
+.update-banner-text { flex: 1; text-align: center; }
+.update-banner-text code {
+  background: rgba(255,255,255,.2);
+  border-radius: 4px;
+  padding: 1px 6px;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+}
+.update-banner-close {
+  background: rgba(255,255,255,.15);
+  border: 1px solid rgba(255,255,255,.25);
+  border-radius: var(--radius-sm);
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 4px;
+  flex-shrink: 0;
+  transition: background var(--transition-fast);
+}
+.update-banner-close:hover { background: rgba(255,255,255,.28); }
+
 /* ─── BUTTONS ─── */
 .btn-primary {
   display: inline-flex;
