@@ -88,7 +88,7 @@ var App = {
       var json = JSON.stringify(msg, null, 2);
       content.innerHTML = '<div class="json-viewer-wrap">'
         + '<div class="json-copy-bar">'
-        +   '<button class="copy-btn" onclick="copyText(' + JSON.stringify(json) + ',this)">Copiar JSON</button>'
+        +   '<button class="copy-btn" onclick="copyText(JSON.stringify(App.messages[App.detailIdx],null,2),this)">Copiar JSON</button>'
         + '</div>'
         + '<div class="json-viewer">' + syntaxJson(json) + '</div>'
         + '</div>';

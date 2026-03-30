@@ -192,6 +192,11 @@
   gap: var(--space-1);
 }
 
+/* Extra bottom breathing room when there is no trace section */
+.msg-card .meta-bar:last-child {
+  padding-bottom: var(--space-4);
+}
+
 /* ─── TRACE ─── */
 .trace-section {
   border-top: 1px solid var(--border-light);
