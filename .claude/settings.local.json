@@ -1,0 +1,42 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3:*)",
+      "Bash(py --version)",
+      "Bash(py:*)",
+      "Bash(curl -s \"http://localhost:5000/api/session/456a93d0-d48a-4df2-81f0-bbf6714aacff?date=2026-03-05\")",
+      "Bash(curl -s \"http://localhost:5000/api/session/u-gm4lzpic?date=2026-02-19\")",
+      "Bash(python:*)",
+      "Bash(zcat /c/IA/banco-hyundai/logs/date=2026-03-15/sessionId=g05vq7ndcfvyv6wes9m739cj/messageId=1773535769382-lc3fft/2026-03-15T004935005Z_03a41e9e-09aa-4314-a0e3-e95381852e03.json.gz)",
+      "Bash(zcat /c/IA/banco-hyundai/logs/date=2026-03-15/sessionId=g05vq7ndcfvyv6wes9m739cj/messageId=1773535805085-3orn0d/2026-03-15T005009376Z_3b501dd5-a970-4c5a-8953-3d663c2845d8.json.gz)",
+      "Bash(xargs -I {} zcat {})",
+      "Bash(zcat:*)",
+      "Bash(find /c/IA/banco-hyundai -type d ! -path */logs/* ! -path */__pycache__/*)",
+      "Bash(curl -s *)",
+      "Bash(curl -s http://localhost:5000/css/variables.css)",
+      "Bash(curl -s \"http://localhost:5000/api/sessions\")",
+      "Bash(curl -s \"http://localhost:5000/api/session/bzqsw39f2kicj6j3h7kxzg07?date=2026-03-19\")",
+      "Bash(curl -s \"http://localhost:5000/api/session/a11dvxtdx2y31twsznqo5aqe?date=2026-03-20\")",
+      "Bash(curl -s \"http://localhost:5000/api/session/a11dvxtdx2y31twsznqoo9fx?date=2026-03-20\")",
+      "Bash(curl -s \"http://localhost:5000/api/session/f6wkzn03fcio7hm1kqldzblp?date=2026-03-17\")",
+      "Bash(curl -s \"http://localhost:5000/api/session/oepy82izzllettj1jyuq6gr6?date=2026-03-16\")",
+      "Bash(node --check viewer/js/utils.js)",
+      "Bash(node --check viewer/js/api.js)",
+      "Bash(node --check viewer/js/stats.js)",
+      "Bash(node --check viewer/js/trace.js)",
+      "Bash(node --check viewer/js/conversation.js)",
+      "Bash(node -e \":*)",
+      "Bash(node --check \"/c/IA/banco-hyundai/viewer/js/sidebar.js\")",
+      "Bash(node --check \"/c/IA/banco-hyundai/viewer/js/app.js\")",
+      "Bash(node --check \"/c/IA/banco-hyundai/viewer/js/search.js\")",
+      "Bash(node:*)",
+      "Bash(pkill -f \"python server.py\")",
+      "Bash(cmd /c start.bat)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(git remote:*)",
+      "Bash(cmd.exe *)"
+    ]
+  }
+}

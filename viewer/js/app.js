@@ -361,8 +361,11 @@ async function runSync() {
     var out = (data.stdout || "").trim();
     var err = (data.stderr || "").trim();
     var rc = data.returncode;
+    var summary = rc === 0
+      ? "Concluído. " + data.sessions + " session(s) · " + data.messages + " mensagem(s) para esta data."
+      : "Finalizado com código " + rc + ".";
     logEl.textContent = [
-      rc === 0 ? "Concluído com sucesso." : "Finalizado com código " + rc + ".",
+      summary,
       out || "(sem saída)",
       err ? "\n--- stderr ---\n" + err : "",
     ].join("\n").trim();

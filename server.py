@@ -209,10 +209,24 @@ def api_sync():
     cmd = ["aws", "s3", "sync", s3_path, local_path, "--profile", profile]
     try:
         result = subprocess.run(cmd, capture_output=True, text=True, timeout=300)
+        sessions_count = 0
+        messages_count = 0
+        if result.returncode == 0 and os.path.isdir(local_path):
+            for entry in os.scandir(local_path):
+                if entry.is_dir() and entry.name.startswith("sessionId="):
+                    sessions_count += 1
+                    if is_new_structure(entry.path):
+                        for sub in os.scandir(entry.path):
+                            if sub.is_dir() and sub.name.startswith("messageId="):
+                                messages_count += len(get_gz_files(sub.path))
+                    else:
+                        messages_count += len(get_gz_files(entry.path))
         return jsonify({
             "stdout": result.stdout,
             "stderr": result.stderr,
             "returncode": result.returncode,
+            "sessions": sessions_count,
+            "messages": messages_count,
         })
     except subprocess.TimeoutExpired:
         return jsonify({"error": "Timeout (300s) atingido"}), 504
